@@ -40,20 +40,20 @@ exports.handler = async (event, context, callback) => {
 
     console.log("api response is " + JSON.stringify(res));
 
+    // TODO implement
+    const response = {
+        statusCode: 400
+    };
+
     if(res.access_token){
         storeSSMParameter(access_token, res.access_token);
         var tokenExpiryDate = ((Date.now()/1000) + res.expires_in).toString();
         console.log(tokenExpiryDate)
-        storeSSMParameter(access_token_expiry_date,tokenExpiryDate)
+        storeSSMParameter(access_token_expiry_date,tokenExpiryDate);
+
+        response.statusCode = 200;
     }
-        
-
-    // TODO implement
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify(res),
-    };
-
+    
     callback(null, response);
 };
 
