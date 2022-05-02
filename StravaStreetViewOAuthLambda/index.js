@@ -6,6 +6,7 @@ var ssm = new AWS.SSM();
 const client_id = "mapillary_ClientId";
 const client_secret = "mapillary_ClientSecret";
 const access_token = "mapillary_AccessToken";
+const access_token_expiry_date = "mapillary_AccessToken_ExpiryDate";
 
 exports.handler = async (event, context, callback) => {
     console.log("event/n" + JSON.stringify(event));
@@ -39,8 +40,13 @@ exports.handler = async (event, context, callback) => {
 
     console.log("api response is " + JSON.stringify(res));
 
-    if(res.access_token)
+    if(res.access_token){
         storeSSMParameter(access_token, res.access_token);
+        var tokenExpiryDate = ((Date.now()/1000) + res.expires_in).toString();
+        console.log(tokenExpiryDate)
+        storeSSMParameter(access_token_expiry_date,tokenExpiryDate)
+    }
+        
 
     // TODO implement
     const response = {
