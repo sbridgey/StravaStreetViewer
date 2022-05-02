@@ -104,3 +104,4 @@ dist
 .tern-port
 .DS_Store
 StravaStreetViewTokenLambda/Archive.zip
+StravaStreetViewOAuthLambda/Archive.zip
